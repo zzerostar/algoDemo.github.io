@@ -607,18 +607,19 @@
     }
 
     .qr-box {
+      position: relative;
       display: grid;
       aspect-ratio: 1;
       place-items: center;
       border: 1px solid #edf1f5;
       border-radius: 18px;
-      background: #f8fbff;
+      background: #fff;
       overflow: hidden;
     }
 
-    .qr-box img {
-      width: 86%;
-      height: 86%;
+    .qr-image {
+      width: 90%;
+      height: 90%;
       object-fit: contain;
     }
 
@@ -964,7 +965,7 @@
         <div class="qr-grid reveal">
           <article class="download-card">
             <div class="qr-box" aria-label="Android download QR code">
-              <img src="https://api.qrserver.com/v1/create-qr-code/?size=320x320&margin=12&data=https%3A%2F%2Fplay.google.com%2Fstore%2Fapps%2Fdetails%3Fid%3Dcom.ziano.algodemo" alt="QR code for Google Play download">
+              <img class="qr-image" src="assets/qr_code_google_play.png" alt="QR code for Google Play download">
             </div>
             <div class="qr-meta">
               <strong>Scan to Download</strong>
@@ -974,7 +975,7 @@
 
           <article class="download-card">
             <div class="qr-box" aria-label="iOS download QR code">
-              <img src="https://api.qrserver.com/v1/create-qr-code/?size=320x320&margin=12&data=https%3A%2F%2Fapps.apple.com%2Fcn%2Fapp%2F%25E7%25AE%2597%25E6%25B3%2595%25E6%25BC%2594%25E7%25A4%25BA%2Fid6746090108" alt="QR code for App Store download">
+              <img class="qr-image" src="assets/qr_code_app_store.png" alt="QR code for App Store download">
             </div>
             <div class="qr-meta">
               <strong>Scan to Download</strong>
