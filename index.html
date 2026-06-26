@@ -154,6 +154,11 @@
       transform: translateY(-1px);
     }
 
+    .language-link {
+      border: 1px solid rgba(61, 99, 242, 0.16);
+      background: rgba(255, 255, 255, 0.7);
+    }
+
     .hero {
       display: grid;
       min-height: calc(100vh - 72px);
@@ -443,11 +448,37 @@
       display: none;
     }
 
+    .video-frame.is-error .loading-ring::before {
+      animation: none;
+      border-color: rgba(244, 118, 44, 0.22);
+      border-top-color: var(--app-orange);
+    }
+
     .video-placeholder-inner {
       display: grid;
       place-items: center;
       gap: 14px;
       text-align: center;
+    }
+
+    .loading-ring {
+      display: grid;
+      width: 88px;
+      height: 88px;
+      place-items: center;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.88);
+      box-shadow: 0 18px 38px rgba(61, 99, 242, 0.2);
+    }
+
+    .loading-ring::before {
+      width: 42px;
+      height: 42px;
+      border: 4px solid rgba(61, 99, 242, 0.16);
+      border-top-color: var(--app-blue);
+      border-radius: 50%;
+      content: "";
+      animation: spinLoading 900ms linear infinite;
     }
 
     .video-sound-toggle {
@@ -476,6 +507,12 @@
       transform: translateY(-2px);
       background: #fff;
       box-shadow: 0 16px 34px rgba(61, 99, 242, 0.2);
+    }
+
+    .video-sound-toggle:disabled {
+      cursor: wait;
+      opacity: 0.64;
+      transform: none;
     }
 
     .video-sound-toggle svg {
@@ -715,6 +752,12 @@
       }
     }
 
+    @keyframes spinLoading {
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
     @media (max-width: 980px) {
       .page-shell {
         width: min(100% - 32px, 760px);
@@ -841,12 +884,13 @@
         <span class="logo" aria-hidden="true">
           <img src="assets/AppIcon.png" alt="">
         </span>
-        <span>AlgoDemo</span>
+        <span data-i18n="appName">AlgoDemo</span>
       </a>
       <div class="nav-links">
-        <a href="#features">Features</a>
-        <a href="#demo">Demo</a>
-        <a href="#download">Download</a>
+        <a href="#features" data-i18n="navFeatures">Features</a>
+        <a href="#demo" data-i18n="navDemo">Demo</a>
+        <a href="#download" data-i18n="navDownload">Download</a>
+        <a class="language-link" href="?lang=zh" data-language-toggle>中文</a>
       </div>
     </nav>
   </header>
@@ -855,29 +899,29 @@
     <section class="hero page-shell">
       <div class="hero-grid">
         <div class="hero-copy reveal">
-          <div class="eyebrow"><span class="pulse-dot" aria-hidden="true"></span>Interactive algorithm visualization</div>
-          <h1>AlgoDemo</h1>
-          <p class="tagline">Turn every algorithm step into something you can see.</p>
-          <p class="intro">AlgoDemo helps you explore sorting, trees, hash tables, dynamic programming, stacks, mazes, and more through animated visualizations, synced code highlights, and step-by-step playback controls.</p>
+          <div class="eyebrow"><span class="pulse-dot" aria-hidden="true"></span><span data-i18n="eyebrow">Interactive algorithm visualization</span></div>
+          <h1 data-i18n="appName">AlgoDemo</h1>
+          <p class="tagline" data-i18n="tagline">Turn every algorithm step into something you can see.</p>
+          <p class="intro" data-i18n="intro">AlgoDemo helps you explore sorting, trees, hash tables, dynamic programming, stacks, mazes, and more through animated visualizations, synced code highlights, and step-by-step playback controls.</p>
           <div class="hero-actions">
             <a class="button primary" href="#download" aria-label="Jump to download section">
               <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
                 <path d="M12 3v12m0 0 5-5m-5 5-5-5M5 21h14" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
               </svg>
-              Download
+              <span data-i18n="downloadButton">Download</span>
             </a>
           </div>
         </div>
 
         <div class="phone-stage reveal" aria-label="AlgoDemo app screenshots">
           <figure class="phone-card secondary-shot">
-            <img src="assets/screenshots/en/sort.PNG" alt="AlgoDemo sorting visualization screen">
+            <img data-shot="secondary" src="assets/screenshots/en/sort.PNG" alt="AlgoDemo sorting visualization screen">
           </figure>
           <figure class="phone-card primary-shot">
-            <img src="assets/screenshots/en/dp.PNG" alt="AlgoDemo dynamic programming visualization screen">
+            <img data-shot="primary" src="assets/screenshots/en/dp.PNG" alt="AlgoDemo dynamic programming visualization screen">
           </figure>
           <figure class="phone-card tertiary-shot">
-            <img src="assets/screenshots/zh/home.PNG" alt="AlgoDemo home screen with algorithm cards">
+            <img data-shot="tertiary" src="assets/screenshots/zh/home.PNG" alt="AlgoDemo home screen with algorithm cards">
           </figure>
         </div>
       </div>
@@ -885,24 +929,24 @@
 
     <section id="features" class="section page-shell">
       <div class="section-heading center reveal">
-        <h2>Understand the idea, the state, and the code together.</h2>
-        <p>Pick an algorithm topic and follow how the data changes, which operation is active, and which code line is running. It is built for learning, reviewing, and explaining algorithm behavior clearly.</p>
+        <h2 data-i18n="featuresTitle">Understand the idea, the state, and the code together.</h2>
+        <p data-i18n="featuresIntro">Pick an algorithm topic and follow how the data changes, which operation is active, and which code line is running. It is built for learning, reviewing, and explaining algorithm behavior clearly.</p>
       </div>
       <div class="feature-strip">
         <article class="feature-card reveal">
           <span class="feature-icon">01</span>
-          <h3>Step-by-step playback</h3>
-          <p>Pause, move forward, go back, and reset the process whenever you want to inspect a key state.</p>
+          <h3 data-i18n="featureOneTitle">Step-by-step playback</h3>
+          <p data-i18n="featureOneText">Pause, move forward, go back, and reset the process whenever you want to inspect a key state.</p>
         </article>
         <article class="feature-card reveal">
           <span class="feature-icon">02</span>
-          <h3>Clear state highlights</h3>
-          <p>Follow current comparisons, visits, stack changes, paths, and table updates with focused visual cues.</p>
+          <h3 data-i18n="featureTwoTitle">Clear state highlights</h3>
+          <p data-i18n="featureTwoText">Follow current comparisons, visits, stack changes, paths, and table updates with focused visual cues.</p>
         </article>
         <article class="feature-card reveal">
           <span class="feature-icon">03</span>
-          <h3>Synced code view</h3>
-          <p>Connect the visual explanation to the implementation as highlighted code lines advance with the demo.</p>
+          <h3 data-i18n="featureThreeTitle">Synced code view</h3>
+          <p data-i18n="featureThreeText">Connect the visual explanation to the implementation as highlighted code lines advance with the demo.</p>
         </article>
       </div>
     </section>
@@ -910,11 +954,10 @@
     <section id="demo" class="section page-shell">
       <div class="video-card reveal">
         <div class="video-frame">
-          <!-- Replace this placeholder source with your real demo video file. Recommended path: assets/algodemo-demo.mp4 -->
-          <video autoplay muted loop playsinline preload="metadata" poster="">
-            <source src="assets/algodemo-demo.mp4" type="video/mp4">
+          <video autoplay muted loop playsinline preload="none" poster="">
+            <source data-video-source data-src="assets/algodemo-demo.mp4" type="video/mp4">
           </video>
-          <button class="video-sound-toggle" type="button" aria-label="Turn video sound on" aria-pressed="false">
+          <button class="video-sound-toggle" type="button" aria-label="Turn video sound on" aria-pressed="false" disabled>
             <svg class="sound-off-icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
               <path d="M4 9v6h4l5 4V5L8 9H4Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
               <path d="m18 9-4 4m0-4 4 4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
@@ -923,14 +966,12 @@
               <path d="M4 9v6h4l5 4V5L8 9H4Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
               <path d="M16 8.5a5 5 0 0 1 0 7M18.5 6a8.5 8.5 0 0 1 0 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
             </svg>
-            <span>Sound Off</span>
+            <span data-i18n="soundOff">Sound Off</span>
           </button>
           <div class="video-placeholder" aria-hidden="true">
             <div class="video-placeholder-inner">
-              <span class="play-ring">
-                <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7L8 5Z"/></svg>
-              </span>
-              <span class="replace-note">Placeholder video area - replace <strong>&nbsp;assets/algodemo-demo.mp4&nbsp;</strong> with the final .mp4 demo.</span>
+              <span class="loading-ring"></span>
+              <span class="replace-note" data-i18n="videoPlaceholder">Loading demo video...</span>
             </div>
           </div>
         </div>
@@ -940,8 +981,8 @@
     <section id="download" class="section page-shell">
       <div class="download-layout">
         <div class="download-copy reveal">
-          <h2>Download AlgoDemo</h2>
-          <p>Scan a QR code or open the store directly to get AlgoDemo on your device.</p>
+          <h2 data-i18n="downloadTitle">Download AlgoDemo</h2>
+          <p data-i18n="downloadIntro">Scan a QR code or open the store directly to get AlgoDemo on your device.</p>
           <div class="store-buttons" aria-label="Store download buttons">
             <a class="store-button" href="https://play.google.com/store/apps/details?id=com.ziano.algodemo" target="_blank" rel="noreferrer" aria-label="Download AlgoDemo on Google Play">
               <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
@@ -950,14 +991,14 @@
                 <path d="m6.2 3.2 11.5 8.7-4 2.1L6.2 3.2Z" fill="#fbbc04" opacity=".95"/>
                 <path d="m6.2 20.8 7.5-10.7 4 2.1-11.5 8.6Z" fill="#ea4335" opacity=".95"/>
               </svg>
-              <span>Get it on<strong>Google Play</strong></span>
+              <span data-i18n-html="googlePlayText">Get it on<strong>Google Play</strong></span>
             </a>
             <a class="store-button" href="https://apps.apple.com/cn/app/%E7%AE%97%E6%B3%95%E6%BC%94%E7%A4%BA/id6746090108" target="_blank" rel="noreferrer" aria-label="Download AlgoDemo on the App Store">
               <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
                 <path d="M16.7 13.2c0-2.2 1.8-3.3 1.9-3.4-1.1-1.6-2.7-1.8-3.2-1.8-1.4-.1-2.7.8-3.4.8-.7 0-1.8-.8-2.9-.8-1.5 0-2.9.9-3.7 2.2-1.6 2.8-.4 6.9 1.1 9.1.8 1.1 1.7 2.3 2.9 2.3 1.1-.1 1.6-.7 3-.7s1.8.7 3 .7c1.3 0 2.1-1.1 2.8-2.2.9-1.3 1.2-2.5 1.3-2.6 0 0-2.8-1.1-2.8-3.6Z" fill="#fff"/>
                 <path d="M14.5 6.5c.6-.8 1.1-1.8.9-2.9-.9.1-1.9.6-2.5 1.3-.6.7-1.1 1.8-.9 2.8 1 .1 1.9-.5 2.5-1.2Z" fill="#fff"/>
               </svg>
-              <span>Download on the<strong>App Store</strong></span>
+              <span data-i18n-html="appStoreText">Download on the<strong>App Store</strong></span>
             </a>
           </div>
         </div>
@@ -968,8 +1009,8 @@
               <img class="qr-image" src="assets/qr_code_google_play.png" alt="QR code for Google Play download">
             </div>
             <div class="qr-meta">
-              <strong>Scan to Download</strong>
-              <span>Android Version</span>
+              <strong data-i18n="scanToDownload">Scan to Download</strong>
+              <span data-i18n="androidVersion">Android Version</span>
             </div>
           </article>
 
@@ -978,8 +1019,8 @@
               <img class="qr-image" src="assets/qr_code_app_store.png" alt="QR code for App Store download">
             </div>
             <div class="qr-meta">
-              <strong>Scan to Download</strong>
-              <span>iOS Version</span>
+              <strong data-i18n="scanToDownload">Scan to Download</strong>
+              <span data-i18n="iosVersion">iOS Version</span>
             </div>
           </article>
         </div>
@@ -989,17 +1030,209 @@
 
   <footer class="site-footer">
     <div class="footer-inner page-shell">
-      <span>© <span id="year"></span> AlgoDemo</span>
+      <span>© <span id="year"></span> <span data-i18n="appName">AlgoDemo</span></span>
       <div class="footer-links">
-        <a href="mailto:zzerostar@163.com">Email</a>
+        <a href="mailto:zzerostar@163.com" data-i18n="footerEmail">Email</a>
         <a href="https://www.youtube.com/@Ziano-Zhuo" target="_blank" rel="noreferrer">YouTube</a>
-        <a href="privacy-policy.html">Privacy Policy</a>
-        <a href="support.html">Support</a>
+        <a href="privacy-policy.html" data-i18n="footerPrivacy">Privacy Policy</a>
+        <a href="support.html" data-i18n="footerSupport">Support</a>
       </div>
     </div>
   </footer>
 
   <script>
+    const locales = {
+      en: {
+        htmlLang: "en",
+        title: "AlgoDemo - Algorithm Visualization App",
+        description: "AlgoDemo is an interactive algorithm visualization app for learning data structures and algorithms through clear, animated demonstrations.",
+        navFeatures: "Features",
+        navDemo: "Demo",
+        navDownload: "Download",
+        appName: "AlgoDemo",
+        languageLabel: "中文",
+        languageHref: "?lang=zh",
+        eyebrow: "Interactive algorithm visualization",
+        tagline: "Turn every algorithm step into something you can see.",
+        intro: "AlgoDemo helps you explore sorting, trees, hash tables, dynamic programming, stacks, mazes, and more through animated visualizations, synced code highlights, and step-by-step playback controls.",
+        downloadButton: "Download",
+        featuresTitle: "Understand the idea, the state, and the code together.",
+        featuresIntro: "Pick an algorithm topic and follow how the data changes, which operation is active, and which code line is running. It is built for learning, reviewing, and explaining algorithm behavior clearly.",
+        featureOneTitle: "Step-by-step playback",
+        featureOneText: "Pause, move forward, go back, and reset the process whenever you want to inspect a key state.",
+        featureTwoTitle: "Clear state highlights",
+        featureTwoText: "Follow current comparisons, visits, stack changes, paths, and table updates with focused visual cues.",
+        featureThreeTitle: "Synced code view",
+        featureThreeText: "Connect the visual explanation to the implementation as highlighted code lines advance with the demo.",
+        soundOff: "Sound Off",
+        soundOn: "Sound On",
+        videoPlaceholder: "Loading demo video...",
+        videoError: "Demo video could not be loaded.",
+        downloadTitle: "Download AlgoDemo",
+        downloadIntro: "Scan a QR code or open the store directly to get AlgoDemo on your device.",
+        googlePlayText: "Get it on<strong>Google Play</strong>",
+        appStoreText: "Download on the<strong>App Store</strong>",
+        scanToDownload: "Scan to Download",
+        androidVersion: "Android Version",
+        iosVersion: "iOS Version",
+        footerEmail: "Email",
+        footerPrivacy: "Privacy Policy",
+        footerSupport: "Support",
+        videoSrc: "assets/algodemo-demo.mp4",
+        screenshots: {
+          primary: {
+            src: "assets/screenshots/en/dp.PNG",
+            alt: "AlgoDemo dynamic programming visualization screen"
+          },
+          secondary: {
+            src: "assets/screenshots/en/sort.PNG",
+            alt: "AlgoDemo sorting visualization screen"
+          },
+          tertiary: {
+            src: "assets/screenshots/zh/home.PNG",
+            alt: "AlgoDemo home screen with algorithm cards"
+          }
+        },
+        labels: {
+          nav: "Primary navigation",
+          home: "AlgoDemo home",
+          downloadJump: "Jump to download section",
+          phoneStage: "AlgoDemo app screenshots",
+          soundOn: "Turn video sound on",
+          soundOff: "Turn video sound off",
+          storeButtons: "Store download buttons",
+          googlePlay: "Download AlgoDemo on Google Play",
+          appStore: "Download AlgoDemo on the App Store",
+          androidQr: "Android download QR code",
+          iosQr: "iOS download QR code"
+        }
+      },
+      zh: {
+        htmlLang: "zh-CN",
+        title: "算法演示 - 算法可视化应用",
+        description: "算法演示是一款交互式算法可视化应用，通过清晰的动画演示帮助你学习数据结构与算法。",
+        navFeatures: "功能",
+        navDemo: "演示",
+        navDownload: "下载",
+        appName: "算法演示",
+        languageLabel: "English",
+        languageHref: "?lang=en",
+        eyebrow: "交互式算法可视化",
+        tagline: "让算法的每一步都清晰可见。",
+        intro: "算法演示通过动画演示、代码同步高亮和逐步播放控制，帮助你学习排序、树、哈希表、动态规划、栈、迷宫等算法主题。",
+        downloadButton: "下载",
+        featuresTitle: "同步理解思路、状态与代码。",
+        featuresIntro: "选择一个算法主题，跟随数据结构的变化、当前执行的操作和对应代码行，一步步理解算法的运行过程。适合学习、复习和讲解算法思路。",
+        featureOneTitle: "逐步播放",
+        featureOneText: "随时暂停、前进、后退或重置演示过程，方便反复观察关键状态。",
+        featureTwoTitle: "清晰的状态高亮",
+        featureTwoText: "通过醒目的视觉提示，跟踪当前比较、访问、入栈出栈、路径变化和表格更新。",
+        featureThreeTitle: "代码同步展示",
+        featureThreeText: "演示过程与代码行同步推进，帮助你把可视化过程和具体实现对应起来。",
+        soundOff: "静音",
+        soundOn: "声音开启",
+        videoPlaceholder: "正在加载演示视频...",
+        videoError: "演示视频加载失败。",
+        downloadTitle: "下载算法演示",
+        downloadIntro: "扫描二维码，或直接打开应用商店，在你的设备上下载算法演示。",
+        googlePlayText: "<strong>Google Play</strong>下载",
+        appStoreText: "<strong>App Store</strong>下载",
+        scanToDownload: "扫码下载",
+        androidVersion: "Android 版本",
+        iosVersion: "iOS 版本",
+        footerEmail: "邮件",
+        footerPrivacy: "隐私政策",
+        footerSupport: "支持",
+        videoSrc: "assets/algodemo-demo-zh.mp4",
+        screenshots: {
+          primary: {
+            src: "assets/screenshots/zh/dp.PNG",
+            alt: "算法演示动态规划可视化界面"
+          },
+          secondary: {
+            src: "assets/screenshots/zh/sorting.PNG",
+            alt: "算法演示排序可视化界面"
+          },
+          tertiary: {
+            src: "assets/screenshots/zh/home.PNG",
+            alt: "算法演示算法分类首页"
+          }
+        },
+        labels: {
+          nav: "主导航",
+          home: "算法演示首页",
+          downloadJump: "跳转到下载区域",
+          phoneStage: "算法演示应用截图",
+          soundOn: "打开视频声音",
+          soundOff: "关闭视频声音",
+          storeButtons: "应用商店下载按钮",
+          googlePlay: "在 Google Play 下载算法演示",
+          appStore: "在 App Store 下载算法演示",
+          androidQr: "Android 下载二维码",
+          iosQr: "iOS 下载二维码"
+        }
+      }
+    };
+
+    const params = new URLSearchParams(window.location.search);
+    const language = params.get("lang") === "zh" ? "zh" : "en";
+    const locale = locales[language];
+
+    function applyLocale() {
+      document.documentElement.lang = locale.htmlLang;
+      document.title = locale.title;
+      document.querySelector('meta[name="description"]').setAttribute("content", locale.description);
+
+      document.querySelectorAll("[data-i18n]").forEach((element) => {
+        const value = locale[element.dataset.i18n];
+        if (value) element.textContent = value;
+      });
+
+      document.querySelectorAll("[data-i18n-html]").forEach((element) => {
+        const value = locale[element.dataset.i18nHtml];
+        if (value) element.innerHTML = value;
+      });
+
+      document.querySelector("[aria-label='Primary navigation'], [aria-label='主导航']")?.setAttribute("aria-label", locale.labels.nav);
+      document.querySelector(".brand")?.setAttribute("aria-label", locale.labels.home);
+      document.querySelector(".button.primary")?.setAttribute("aria-label", locale.labels.downloadJump);
+      document.querySelector(".phone-stage")?.setAttribute("aria-label", locale.labels.phoneStage);
+      document.querySelector(".store-buttons")?.setAttribute("aria-label", locale.labels.storeButtons);
+      document.querySelector(".store-button[href*='play.google.com']")?.setAttribute("aria-label", locale.labels.googlePlay);
+      document.querySelector(".store-button[href*='apps.apple.com']")?.setAttribute("aria-label", locale.labels.appStore);
+      document.querySelector(".qr-box[aria-label*='Android'], .qr-box[aria-label*='下载二维码']")?.setAttribute("aria-label", locale.labels.androidQr);
+      document.querySelector(".qr-box[aria-label*='iOS']")?.setAttribute("aria-label", locale.labels.iosQr);
+
+      Object.entries(locale.screenshots).forEach(([key, image]) => {
+        const element = document.querySelector(`[data-shot="${key}"]`);
+        if (!element) return;
+        element.src = image.src;
+        element.alt = image.alt;
+      });
+
+      const video = document.querySelector("video");
+      const videoSource = document.querySelector("[data-video-source]");
+      if (video && videoSource) {
+        videoSource.dataset.src = locale.videoSrc;
+        videoSource.removeAttribute("src");
+      }
+
+      const languageToggle = document.querySelector("[data-language-toggle]");
+      if (languageToggle) {
+        languageToggle.textContent = locale.languageLabel;
+        languageToggle.href = locale.languageHref;
+      }
+
+      const soundButton = document.querySelector(".video-sound-toggle");
+      const soundLabel = soundButton?.querySelector("span");
+      if (soundButton && soundLabel && video) {
+        soundButton.setAttribute("aria-label", video.muted ? locale.labels.soundOn : locale.labels.soundOff);
+        soundLabel.textContent = video.muted ? locale.soundOff : locale.soundOn;
+      }
+    }
+
+    applyLocale();
+
     document.getElementById("year").textContent = new Date().getFullYear();
 
     const revealObserver = new IntersectionObserver((entries) => {
@@ -1015,19 +1248,54 @@
 
     document.querySelectorAll(".video-frame").forEach((frame) => {
       const video = frame.querySelector("video");
+      const videoSource = frame.querySelector("[data-video-source]");
       const placeholder = frame.querySelector(".video-placeholder");
+      const placeholderText = frame.querySelector(".replace-note");
       const soundButton = frame.querySelector(".video-sound-toggle");
       const soundLabel = soundButton.querySelector("span");
       const soundOffIcon = soundButton.querySelector(".sound-off-icon");
       const soundOnIcon = soundButton.querySelector(".sound-on-icon");
+      let videoLoadStarted = false;
 
-      video.addEventListener("loadeddata", () => placeholder.classList.add("is-hidden"), { once: true });
+      function loadVideo() {
+        if (videoLoadStarted || !videoSource?.dataset.src) return;
+        videoLoadStarted = true;
+        videoSource.setAttribute("src", videoSource.dataset.src);
+        video.load();
+      }
+
+      function markVideoReady() {
+        placeholder.classList.add("is-hidden");
+        soundButton.disabled = false;
+        video.play().catch(() => {});
+      }
+
+      video.addEventListener("loadeddata", markVideoReady, { once: true });
+      video.addEventListener("canplay", markVideoReady, { once: true });
+      video.addEventListener("error", () => {
+        frame.classList.add("is-error");
+        soundButton.disabled = true;
+        if (placeholderText) placeholderText.textContent = locale.videoError;
+      });
+
+      if ("IntersectionObserver" in window) {
+        const videoLoadObserver = new IntersectionObserver((entries) => {
+          if (entries.some((entry) => entry.isIntersecting)) {
+            loadVideo();
+            videoLoadObserver.disconnect();
+          }
+        }, { rootMargin: "360px 0px", threshold: 0.01 });
+        videoLoadObserver.observe(frame);
+      } else {
+        loadVideo();
+      }
 
       soundButton.addEventListener("click", async () => {
+        if (soundButton.disabled) return;
         video.muted = !video.muted;
         soundButton.setAttribute("aria-pressed", String(!video.muted));
-        soundButton.setAttribute("aria-label", video.muted ? "Turn video sound on" : "Turn video sound off");
-        soundLabel.textContent = video.muted ? "Sound Off" : "Sound On";
+        soundButton.setAttribute("aria-label", video.muted ? locale.labels.soundOn : locale.labels.soundOff);
+        soundLabel.textContent = video.muted ? locale.soundOff : locale.soundOn;
         soundOffIcon.hidden = !video.muted;
         soundOnIcon.hidden = video.muted;
 
@@ -1038,8 +1306,8 @@
         } catch (error) {
           video.muted = true;
           soundButton.setAttribute("aria-pressed", "false");
-          soundButton.setAttribute("aria-label", "Turn video sound on");
-          soundLabel.textContent = "Sound Off";
+          soundButton.setAttribute("aria-label", locale.labels.soundOn);
+          soundLabel.textContent = locale.soundOff;
           soundOffIcon.hidden = false;
           soundOnIcon.hidden = true;
         }
