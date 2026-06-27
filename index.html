@@ -424,11 +424,12 @@
         linear-gradient(135deg, #f8fbff, #edf2ff);
     }
 
-    .video-frame video {
+    .video-frame iframe {
+      display: block;
       width: 100%;
       height: 100%;
-      object-fit: cover;
-      background: transparent;
+      border: 0;
+      background: #000;
     }
 
     .video-placeholder {
@@ -478,113 +479,6 @@
       border-radius: 50%;
       content: "";
       animation: spinLoading 900ms linear infinite;
-    }
-
-    .video-sound-toggle {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      width: 42px;
-      height: 42px;
-      flex: 0 0 auto;
-      border: 1px solid rgba(61, 99, 242, 0.16);
-      border-radius: 50%;
-      padding: 0;
-      background: #fff;
-      color: var(--app-blue);
-      font: inherit;
-      box-shadow: 0 8px 18px rgba(45, 63, 96, 0.12);
-      cursor: pointer;
-      transition: transform 220ms ease, border-color 220ms ease, box-shadow 220ms ease;
-    }
-
-    .video-sound-toggle:hover {
-      transform: translateY(-2px);
-      border-color: rgba(61, 99, 242, 0.34);
-      box-shadow: 0 12px 24px rgba(61, 99, 242, 0.18);
-    }
-
-    .video-sound-toggle:disabled {
-      cursor: wait;
-      opacity: 0.64;
-      transform: none;
-    }
-
-    .video-sound-toggle svg {
-      width: 18px;
-      height: 18px;
-      flex: 0 0 auto;
-    }
-
-    .video-sound-toggle[data-muted="true"] .sound-on-icon,
-    .video-sound-toggle[data-muted="false"] .sound-off-icon {
-      display: none;
-    }
-
-    .video-controls {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      min-height: 54px;
-      padding: 8px 0 0;
-      background: transparent;
-    }
-
-    .video-progress {
-      flex: 1 1 auto;
-      min-width: 0;
-      height: 18px;
-      accent-color: var(--app-blue);
-      cursor: pointer;
-      appearance: none;
-      background: transparent;
-    }
-
-    .video-progress::-webkit-slider-runnable-track {
-      height: 8px;
-      border: 1px solid #b6bdc6;
-      border-radius: 999px;
-      background:
-        linear-gradient(var(--app-blue), var(--app-blue)) 0 / var(--video-progress, 0%) 100% no-repeat,
-        #d8dde3;
-    }
-
-    .video-progress::-webkit-slider-thumb {
-      width: 22px;
-      height: 22px;
-      margin-top: -8px;
-      border: 0;
-      border-radius: 50%;
-      appearance: none;
-      background: var(--app-blue);
-      box-shadow: 0 4px 12px rgba(61, 99, 242, 0.32);
-    }
-
-    .video-progress::-moz-range-track {
-      height: 8px;
-      border: 1px solid #b6bdc6;
-      border-radius: 999px;
-      background: #d8dde3;
-    }
-
-    .video-progress::-moz-range-progress {
-      height: 8px;
-      border-radius: 999px;
-      background: var(--app-blue);
-    }
-
-    .video-progress::-moz-range-thumb {
-      width: 22px;
-      height: 22px;
-      border: 0;
-      border-radius: 50%;
-      background: var(--app-blue);
-      box-shadow: 0 4px 12px rgba(61, 99, 242, 0.32);
-    }
-
-    .video-progress:disabled {
-      cursor: wait;
-      opacity: 0.5;
     }
 
     .download-layout {
@@ -877,17 +771,6 @@
         grid-template-columns: 1fr;
       }
 
-      .video-controls {
-        min-height: 50px;
-        gap: 10px;
-        padding-top: 7px;
-      }
-
-      .video-sound-toggle {
-        width: 38px;
-        height: 38px;
-      }
-
       .footer-inner {
         align-items: flex-start;
         flex-direction: column;
@@ -985,27 +868,18 @@
     <section id="demo" class="section page-shell">
       <div class="video-card reveal">
         <div class="video-frame">
-          <video autoplay muted loop playsinline preload="none" poster="">
-            <source data-video-source data-src="assets/algodemo-demo.mp4" type="video/mp4">
-          </video>
+          <iframe
+            data-video-player
+            title="AlgoDemo demo video"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            allowfullscreen
+            loading="lazy"
+            referrerpolicy="origin-when-cross-origin"></iframe>
           <div class="video-placeholder" aria-hidden="true">
             <div class="video-placeholder-inner">
               <span class="loading-ring"></span>
             </div>
           </div>
-        </div>
-        <div class="video-controls" aria-label="Video controls">
-          <input class="video-progress" type="range" min="0" max="1000" value="0" step="1" aria-label="Video progress" disabled>
-          <button class="video-sound-toggle" type="button" aria-label="Turn video sound on" aria-pressed="false" data-muted="true" disabled>
-            <svg class="sound-off-icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-              <path d="M4 9v6h4l5 4V5L8 9H4Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
-              <path d="m18 9-4 4m0-4 4 4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-            </svg>
-            <svg class="sound-on-icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-              <path d="M4 9v6h4l5 4V5L8 9H4Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
-              <path d="M16 8.5a5 5 0 0 1 0 7M18.5 6a8.5 8.5 0 0 1 0 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-            </svg>
-          </button>
         </div>
       </div>
     </section>
@@ -1106,7 +980,8 @@
         footerEmail: "Email",
         footerPrivacy: "Privacy Policy",
         footerSupport: "Support",
-        videoSrc: "assets/algodemo-demo.mp4",
+        videoEmbed: "https://www.youtube.com/embed/ajwjmH5DToU?rel=0&playsinline=1",
+        videoTitle: "AlgoDemo demo video",
         screenshots: {
           primary: {
             src: "assets/screenshots/en/dp.PNG",
@@ -1126,10 +1001,6 @@
           home: "AlgoDemo home",
           downloadJump: "Jump to download section",
           phoneStage: "AlgoDemo app screenshots",
-          soundOn: "Turn video sound on",
-          soundOff: "Turn video sound off",
-          videoControls: "Video controls",
-          videoProgress: "Video progress",
           storeButtons: "Store download buttons",
           googlePlay: "Download AlgoDemo on Google Play",
           appStore: "Download AlgoDemo on the App Store",
@@ -1169,7 +1040,8 @@
         footerEmail: "邮件",
         footerPrivacy: "隐私政策",
         footerSupport: "支持",
-        videoSrc: "assets/algodemo-demo-zh.mp4",
+        videoEmbed: "https://player.bilibili.com/player.html?bvid=BV1Uz7p6dEXA&page=1&high_quality=1&autoplay=0&danmaku=0",
+        videoTitle: "算法演示演示视频",
         screenshots: {
           primary: {
             src: "assets/screenshots/zh/dp.PNG",
@@ -1189,10 +1061,6 @@
           home: "算法演示首页",
           downloadJump: "跳转到下载区域",
           phoneStage: "算法演示应用截图",
-          soundOn: "打开视频声音",
-          soundOff: "关闭视频声音",
-          videoControls: "视频控制",
-          videoProgress: "视频进度",
           storeButtons: "应用商店下载按钮",
           googlePlay: "在 Google Play 下载算法演示",
           appStore: "在 App Store 下载算法演示",
@@ -1238,11 +1106,11 @@
         element.alt = image.alt;
       });
 
-      const video = document.querySelector("video");
-      const videoSource = document.querySelector("[data-video-source]");
-      if (video && videoSource) {
-        videoSource.dataset.src = locale.videoSrc;
-        videoSource.removeAttribute("src");
+      const videoPlayer = document.querySelector("[data-video-player]");
+      if (videoPlayer) {
+        videoPlayer.title = locale.videoTitle;
+        videoPlayer.dataset.src = locale.videoEmbed;
+        videoPlayer.removeAttribute("src");
       }
 
       const languageToggle = document.querySelector("[data-language-toggle]");
@@ -1251,12 +1119,6 @@
         languageToggle.href = locale.languageHref;
       }
 
-      const soundButton = document.querySelector(".video-sound-toggle");
-      const videoControls = document.querySelector(".video-controls");
-      const videoProgress = document.querySelector(".video-progress");
-      if (soundButton && video) soundButton.setAttribute("aria-label", video.muted ? locale.labels.soundOn : locale.labels.soundOff);
-      videoControls?.setAttribute("aria-label", locale.labels.videoControls);
-      videoProgress?.setAttribute("aria-label", locale.labels.videoProgress);
     }
 
     applyLocale();
@@ -1275,97 +1137,38 @@
     document.querySelectorAll(".reveal").forEach((element) => revealObserver.observe(element));
 
     document.querySelectorAll(".video-frame").forEach((frame) => {
-      const card = frame.closest(".video-card");
-      const video = frame.querySelector("video");
-      const videoSource = frame.querySelector("[data-video-source]");
+      const player = frame.querySelector("[data-video-player]");
       const placeholder = frame.querySelector(".video-placeholder");
-      const progress = card.querySelector(".video-progress");
-      const soundButton = card.querySelector(".video-sound-toggle");
-      let videoLoadStarted = false;
-      let isSeeking = false;
+      let playerLoadStarted = false;
 
-      function syncSoundButton() {
-        soundButton.dataset.muted = String(video.muted);
-        soundButton.setAttribute("aria-pressed", String(!video.muted));
-        soundButton.setAttribute("aria-label", video.muted ? locale.labels.soundOn : locale.labels.soundOff);
+      function getVideoEmbedUrl(src) {
+        if (!src.includes("youtube.com/embed/")) return src;
+        if (!window.location.origin.startsWith("http")) return src;
+
+        const url = new URL(src);
+        url.searchParams.set("origin", window.location.origin);
+        return url.toString();
       }
 
-      function syncProgressVisual() {
-        progress.style.setProperty("--video-progress", `${(Number(progress.value) / Number(progress.max)) * 100}%`);
+      function loadPlayer() {
+        if (playerLoadStarted || !player?.dataset.src) return;
+        playerLoadStarted = true;
+        player.src = getVideoEmbedUrl(player.dataset.src);
       }
 
-      function loadVideo() {
-        if (videoLoadStarted || !videoSource?.dataset.src) return;
-        videoLoadStarted = true;
-        videoSource.setAttribute("src", videoSource.dataset.src);
-        video.load();
-      }
-
-      function markVideoReady() {
-        placeholder.classList.add("is-hidden");
-        soundButton.disabled = false;
-        progress.disabled = false;
-        syncSoundButton();
-        video.play().catch(() => {});
-      }
-
-      video.addEventListener("loadeddata", markVideoReady, { once: true });
-      video.addEventListener("canplay", markVideoReady, { once: true });
-      video.addEventListener("error", () => {
-        frame.classList.add("is-error");
-        soundButton.disabled = true;
-        progress.disabled = true;
-      });
+      player?.addEventListener("load", () => placeholder.classList.add("is-hidden"), { once: true });
 
       if ("IntersectionObserver" in window) {
         const videoLoadObserver = new IntersectionObserver((entries) => {
           if (entries.some((entry) => entry.isIntersecting)) {
-            loadVideo();
+            loadPlayer();
             videoLoadObserver.disconnect();
           }
         }, { rootMargin: "360px 0px", threshold: 0.01 });
         videoLoadObserver.observe(frame);
       } else {
-        loadVideo();
+        loadPlayer();
       }
-
-      soundButton.addEventListener("click", async () => {
-        if (soundButton.disabled) return;
-        video.muted = !video.muted;
-        syncSoundButton();
-
-        if (!video.paused) return;
-
-        try {
-          await video.play();
-        } catch (error) {
-          video.muted = true;
-          syncSoundButton();
-        }
-      });
-
-      syncSoundButton();
-
-      video.addEventListener("timeupdate", () => {
-        if (isSeeking || !Number.isFinite(video.duration) || video.duration <= 0) return;
-        progress.value = String(Math.round((video.currentTime / video.duration) * Number(progress.max)));
-        syncProgressVisual();
-      });
-
-      progress.addEventListener("input", () => {
-        isSeeking = true;
-        syncProgressVisual();
-      });
-
-      progress.addEventListener("change", () => {
-        if (Number.isFinite(video.duration) && video.duration > 0) {
-          video.currentTime = (Number(progress.value) / Number(progress.max)) * video.duration;
-        }
-        isSeeking = false;
-        syncProgressVisual();
-      });
-
-      syncProgressVisual();
     });
 
     const canvas = document.querySelector(".particle-canvas");
