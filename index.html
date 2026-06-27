@@ -406,8 +406,8 @@
       position: relative;
       border: 1px solid rgba(255, 255, 255, 0.72);
       border-radius: 30px;
-      padding: clamp(14px, 2vw, 22px);
-      background: rgba(255, 255, 255, 0.58);
+      padding: clamp(12px, 1.8vw, 22px);
+      background: rgba(255, 255, 255, 0.9);
       box-shadow: var(--shadow);
       backdrop-filter: blur(24px);
       transition: transform 260ms ease, border-color 260ms ease, box-shadow 260ms ease;
@@ -418,7 +418,7 @@
       aspect-ratio: 16 / 9;
       overflow: hidden;
       border: 1px solid var(--line);
-      border-radius: 22px;
+      border-radius: 22px 22px 14px 14px;
       background:
         radial-gradient(circle at 28% 24%, rgba(61, 99, 242, 0.18), transparent 30%),
         linear-gradient(135deg, #f8fbff, #edf2ff);
@@ -457,7 +457,6 @@
     .video-placeholder-inner {
       display: grid;
       place-items: center;
-      gap: 14px;
       text-align: center;
     }
 
@@ -482,31 +481,27 @@
     }
 
     .video-sound-toggle {
-      position: absolute;
-      right: 16px;
-      bottom: 16px;
-      z-index: 3;
       display: inline-flex;
       align-items: center;
-      min-height: 42px;
-      gap: 8px;
-      border: 1px solid rgba(61, 99, 242, 0.18);
-      border-radius: 999px;
-      padding: 0 14px;
-      background: rgba(255, 255, 255, 0.9);
+      justify-content: center;
+      width: 42px;
+      height: 42px;
+      flex: 0 0 auto;
+      border: 1px solid rgba(61, 99, 242, 0.16);
+      border-radius: 50%;
+      padding: 0;
+      background: #fff;
       color: var(--app-blue);
       font: inherit;
-      font-size: 0.92rem;
-      font-weight: 800;
-      box-shadow: 0 12px 26px rgba(45, 63, 96, 0.16);
+      box-shadow: 0 8px 18px rgba(45, 63, 96, 0.12);
       cursor: pointer;
-      transition: transform 220ms ease, background 220ms ease, box-shadow 220ms ease;
+      transition: transform 220ms ease, border-color 220ms ease, box-shadow 220ms ease;
     }
 
     .video-sound-toggle:hover {
       transform: translateY(-2px);
-      background: #fff;
-      box-shadow: 0 16px 34px rgba(61, 99, 242, 0.2);
+      border-color: rgba(61, 99, 242, 0.34);
+      box-shadow: 0 12px 24px rgba(61, 99, 242, 0.18);
     }
 
     .video-sound-toggle:disabled {
@@ -521,38 +516,75 @@
       flex: 0 0 auto;
     }
 
-    .play-ring {
-      display: grid;
-      width: 88px;
-      height: 88px;
-      place-items: center;
+    .video-sound-toggle[data-muted="true"] .sound-on-icon,
+    .video-sound-toggle[data-muted="false"] .sound-off-icon {
+      display: none;
+    }
+
+    .video-controls {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      min-height: 54px;
+      padding: 8px 0 0;
+      background: transparent;
+    }
+
+    .video-progress {
+      flex: 1 1 auto;
+      min-width: 0;
+      height: 18px;
+      accent-color: var(--app-blue);
+      cursor: pointer;
+      appearance: none;
+      background: transparent;
+    }
+
+    .video-progress::-webkit-slider-runnable-track {
+      height: 8px;
+      border: 1px solid #b6bdc6;
+      border-radius: 999px;
+      background:
+        linear-gradient(var(--app-blue), var(--app-blue)) 0 / var(--video-progress, 0%) 100% no-repeat,
+        #d8dde3;
+    }
+
+    .video-progress::-webkit-slider-thumb {
+      width: 22px;
+      height: 22px;
+      margin-top: -8px;
+      border: 0;
+      border-radius: 50%;
+      appearance: none;
+      background: var(--app-blue);
+      box-shadow: 0 4px 12px rgba(61, 99, 242, 0.32);
+    }
+
+    .video-progress::-moz-range-track {
+      height: 8px;
+      border: 1px solid #b6bdc6;
+      border-radius: 999px;
+      background: #d8dde3;
+    }
+
+    .video-progress::-moz-range-progress {
+      height: 8px;
+      border-radius: 999px;
+      background: var(--app-blue);
+    }
+
+    .video-progress::-moz-range-thumb {
+      width: 22px;
+      height: 22px;
+      border: 0;
       border-radius: 50%;
       background: var(--app-blue);
-      box-shadow: 0 18px 38px rgba(61, 99, 242, 0.28);
+      box-shadow: 0 4px 12px rgba(61, 99, 242, 0.32);
     }
 
-    .play-ring svg {
-      width: 38px;
-      height: 38px;
-      margin-left: 4px;
-      fill: #fff;
-    }
-
-    .replace-note {
-      display: inline-flex;
-      max-width: min(100%, 650px);
-      border: 1px solid rgba(61, 99, 242, 0.16);
-      border-radius: 999px;
-      padding: 9px 14px;
-      background: rgba(255, 255, 255, 0.84);
-      color: var(--text);
-      font-size: 0.92rem;
-      line-height: 1.45;
-      box-shadow: 0 10px 24px rgba(45, 63, 96, 0.1);
-    }
-
-    .replace-note strong {
-      color: var(--app-blue);
+    .video-progress:disabled {
+      cursor: wait;
+      opacity: 0.5;
     }
 
     .download-layout {
@@ -845,16 +877,15 @@
         grid-template-columns: 1fr;
       }
 
-      .replace-note {
-        border-radius: 14px;
+      .video-controls {
+        min-height: 50px;
+        gap: 10px;
+        padding-top: 7px;
       }
 
       .video-sound-toggle {
-        right: 10px;
-        bottom: 10px;
-        min-height: 38px;
-        padding: 0 12px;
-        font-size: 0.84rem;
+        width: 38px;
+        height: 38px;
       }
 
       .footer-inner {
@@ -957,23 +988,24 @@
           <video autoplay muted loop playsinline preload="none" poster="">
             <source data-video-source data-src="assets/algodemo-demo.mp4" type="video/mp4">
           </video>
-          <button class="video-sound-toggle" type="button" aria-label="Turn video sound on" aria-pressed="false" disabled>
+          <div class="video-placeholder" aria-hidden="true">
+            <div class="video-placeholder-inner">
+              <span class="loading-ring"></span>
+            </div>
+          </div>
+        </div>
+        <div class="video-controls" aria-label="Video controls">
+          <input class="video-progress" type="range" min="0" max="1000" value="0" step="1" aria-label="Video progress" disabled>
+          <button class="video-sound-toggle" type="button" aria-label="Turn video sound on" aria-pressed="false" data-muted="true" disabled>
             <svg class="sound-off-icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
               <path d="M4 9v6h4l5 4V5L8 9H4Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
               <path d="m18 9-4 4m0-4 4 4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
             </svg>
-            <svg class="sound-on-icon" viewBox="0 0 24 24" fill="none" aria-hidden="true" hidden>
+            <svg class="sound-on-icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
               <path d="M4 9v6h4l5 4V5L8 9H4Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
               <path d="M16 8.5a5 5 0 0 1 0 7M18.5 6a8.5 8.5 0 0 1 0 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
             </svg>
-            <span data-i18n="soundOff">Sound Off</span>
           </button>
-          <div class="video-placeholder" aria-hidden="true">
-            <div class="video-placeholder-inner">
-              <span class="loading-ring"></span>
-              <span class="replace-note" data-i18n="videoPlaceholder">Loading demo video...</span>
-            </div>
-          </div>
         </div>
       </div>
     </section>
@@ -1064,10 +1096,6 @@
         featureTwoText: "Follow current comparisons, visits, stack changes, paths, and table updates with focused visual cues.",
         featureThreeTitle: "Synced code view",
         featureThreeText: "Connect the visual explanation to the implementation as highlighted code lines advance with the demo.",
-        soundOff: "Sound Off",
-        soundOn: "Sound On",
-        videoPlaceholder: "Loading demo video...",
-        videoError: "Demo video could not be loaded.",
         downloadTitle: "Download AlgoDemo",
         downloadIntro: "Scan a QR code or open the store directly to get AlgoDemo on your device.",
         googlePlayText: "Get it on<strong>Google Play</strong>",
@@ -1100,6 +1128,8 @@
           phoneStage: "AlgoDemo app screenshots",
           soundOn: "Turn video sound on",
           soundOff: "Turn video sound off",
+          videoControls: "Video controls",
+          videoProgress: "Video progress",
           storeButtons: "Store download buttons",
           googlePlay: "Download AlgoDemo on Google Play",
           appStore: "Download AlgoDemo on the App Store",
@@ -1129,10 +1159,6 @@
         featureTwoText: "通过醒目的视觉提示，跟踪当前比较、访问、入栈出栈、路径变化和表格更新。",
         featureThreeTitle: "代码同步展示",
         featureThreeText: "演示过程与代码行同步推进，帮助你把可视化过程和具体实现对应起来。",
-        soundOff: "静音",
-        soundOn: "声音开启",
-        videoPlaceholder: "正在加载演示视频...",
-        videoError: "演示视频加载失败。",
         downloadTitle: "下载算法演示",
         downloadIntro: "扫描二维码，或直接打开应用商店，在你的设备上下载算法演示。",
         googlePlayText: "<strong>Google Play</strong>下载",
@@ -1165,6 +1191,8 @@
           phoneStage: "算法演示应用截图",
           soundOn: "打开视频声音",
           soundOff: "关闭视频声音",
+          videoControls: "视频控制",
+          videoProgress: "视频进度",
           storeButtons: "应用商店下载按钮",
           googlePlay: "在 Google Play 下载算法演示",
           appStore: "在 App Store 下载算法演示",
@@ -1224,11 +1252,11 @@
       }
 
       const soundButton = document.querySelector(".video-sound-toggle");
-      const soundLabel = soundButton?.querySelector("span");
-      if (soundButton && soundLabel && video) {
-        soundButton.setAttribute("aria-label", video.muted ? locale.labels.soundOn : locale.labels.soundOff);
-        soundLabel.textContent = video.muted ? locale.soundOff : locale.soundOn;
-      }
+      const videoControls = document.querySelector(".video-controls");
+      const videoProgress = document.querySelector(".video-progress");
+      if (soundButton && video) soundButton.setAttribute("aria-label", video.muted ? locale.labels.soundOn : locale.labels.soundOff);
+      videoControls?.setAttribute("aria-label", locale.labels.videoControls);
+      videoProgress?.setAttribute("aria-label", locale.labels.videoProgress);
     }
 
     applyLocale();
@@ -1247,15 +1275,24 @@
     document.querySelectorAll(".reveal").forEach((element) => revealObserver.observe(element));
 
     document.querySelectorAll(".video-frame").forEach((frame) => {
+      const card = frame.closest(".video-card");
       const video = frame.querySelector("video");
       const videoSource = frame.querySelector("[data-video-source]");
       const placeholder = frame.querySelector(".video-placeholder");
-      const placeholderText = frame.querySelector(".replace-note");
-      const soundButton = frame.querySelector(".video-sound-toggle");
-      const soundLabel = soundButton.querySelector("span");
-      const soundOffIcon = soundButton.querySelector(".sound-off-icon");
-      const soundOnIcon = soundButton.querySelector(".sound-on-icon");
+      const progress = card.querySelector(".video-progress");
+      const soundButton = card.querySelector(".video-sound-toggle");
       let videoLoadStarted = false;
+      let isSeeking = false;
+
+      function syncSoundButton() {
+        soundButton.dataset.muted = String(video.muted);
+        soundButton.setAttribute("aria-pressed", String(!video.muted));
+        soundButton.setAttribute("aria-label", video.muted ? locale.labels.soundOn : locale.labels.soundOff);
+      }
+
+      function syncProgressVisual() {
+        progress.style.setProperty("--video-progress", `${(Number(progress.value) / Number(progress.max)) * 100}%`);
+      }
 
       function loadVideo() {
         if (videoLoadStarted || !videoSource?.dataset.src) return;
@@ -1267,6 +1304,8 @@
       function markVideoReady() {
         placeholder.classList.add("is-hidden");
         soundButton.disabled = false;
+        progress.disabled = false;
+        syncSoundButton();
         video.play().catch(() => {});
       }
 
@@ -1275,7 +1314,7 @@
       video.addEventListener("error", () => {
         frame.classList.add("is-error");
         soundButton.disabled = true;
-        if (placeholderText) placeholderText.textContent = locale.videoError;
+        progress.disabled = true;
       });
 
       if ("IntersectionObserver" in window) {
@@ -1293,11 +1332,7 @@
       soundButton.addEventListener("click", async () => {
         if (soundButton.disabled) return;
         video.muted = !video.muted;
-        soundButton.setAttribute("aria-pressed", String(!video.muted));
-        soundButton.setAttribute("aria-label", video.muted ? locale.labels.soundOn : locale.labels.soundOff);
-        soundLabel.textContent = video.muted ? locale.soundOff : locale.soundOn;
-        soundOffIcon.hidden = !video.muted;
-        soundOnIcon.hidden = video.muted;
+        syncSoundButton();
 
         if (!video.paused) return;
 
@@ -1305,13 +1340,32 @@
           await video.play();
         } catch (error) {
           video.muted = true;
-          soundButton.setAttribute("aria-pressed", "false");
-          soundButton.setAttribute("aria-label", locale.labels.soundOn);
-          soundLabel.textContent = locale.soundOff;
-          soundOffIcon.hidden = false;
-          soundOnIcon.hidden = true;
+          syncSoundButton();
         }
       });
+
+      syncSoundButton();
+
+      video.addEventListener("timeupdate", () => {
+        if (isSeeking || !Number.isFinite(video.duration) || video.duration <= 0) return;
+        progress.value = String(Math.round((video.currentTime / video.duration) * Number(progress.max)));
+        syncProgressVisual();
+      });
+
+      progress.addEventListener("input", () => {
+        isSeeking = true;
+        syncProgressVisual();
+      });
+
+      progress.addEventListener("change", () => {
+        if (Number.isFinite(video.duration) && video.duration > 0) {
+          video.currentTime = (Number(progress.value) / Number(progress.max)) * video.duration;
+        }
+        isSeeking = false;
+        syncProgressVisual();
+      });
+
+      syncProgressVisual();
     });
 
     const canvas = document.querySelector(".particle-canvas");
